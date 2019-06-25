@@ -1,6 +1,13 @@
 <template>
   <div class="about">
     <h1>This is the login page</h1>
+    <div class="list-accounts">
+      <h2>This is test GET request to fetch and list all users from DB:</h2>
+      <div v-for="user in users">
+        Username: {{user}}
+      </div>
+    </div>
+    <br>
     <div class="login">
       <form v-on:submit.prevent="submit()">
         <div class="row">
@@ -18,3 +25,20 @@
     </div>
   </div>
 </template>
+
+<script type="text/javascript">
+  import axios from "axios";
+
+  export default {
+    data: function() {
+      return {
+        users: "",
+      };
+    },
+    created: function() {
+      axios.get("/api/users").then(response => {
+        this.users = response.data;
+      });
+    }
+  }
+</script>
